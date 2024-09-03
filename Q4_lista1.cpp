@@ -13,8 +13,8 @@ valor de vendas.
 Valida¸c˜ao de Entrada: N˜ao aceite valores em menores que 0,00.*/
 
 #include <iostream>
-#include <iomanip> 
 #include <string>
+#include <cmath> 
 
 using namespace std;
 
@@ -31,7 +31,7 @@ double obterVendas(const string& nomeFilial) {
     return vendas;
 }
 
-
+// Função para encontrar e exibir a filial com o maior faturamento
 void encontrarMaior(double vendasNordeste, double vendasSudeste, double vendasNoroeste, double vendasSudoeste) {
     double maiorVendas = vendasNordeste;
     string filialComMaiorVendas = "Nordeste";
@@ -49,18 +49,19 @@ void encontrarMaior(double vendasNordeste, double vendasSudeste, double vendasNo
         filialComMaiorVendas = "Sudoeste";
     }
 
-    cout << "A filial com o maior faturamento é " << filialComMaiorVendas 
-         << " com R$ " << fixed << setprecision(2) << maiorVendas << endl;
+    int maiorVendasInteiro = static_cast<int>(maiorVendas);
+    int maiorVendasDecimal = static_cast<int>(round((maiorVendas - maiorVendasInteiro) * 100));
+
+    cout << "A filial com o maior faturamento é " << filialComMaiorVendas
+         << " com R$ " << maiorVendasInteiro << ',' << (maiorVendasDecimal < 10 ? "0" : "") << maiorVendasDecimal << endl;
 }
 
 int main() {
-
     double vendasNordeste = obterVendas("Nordeste");
     double vendasSudeste = obterVendas("Sudeste");
     double vendasNoroeste = obterVendas("Noroeste");
     double vendasSudoeste = obterVendas("Sudoeste");
 
-    // Encontra e imprime a filial com o maior faturamento
     encontrarMaior(vendasNordeste, vendasSudeste, vendasNoroeste, vendasSudoeste);
 
     return 0;
